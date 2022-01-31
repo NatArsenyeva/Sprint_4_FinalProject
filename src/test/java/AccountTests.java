@@ -1,3 +1,5 @@
+import io.qameta.allure.Step;
+import io.qameta.allure.junit4.DisplayName;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -18,28 +20,30 @@ public class AccountTests {
     @Parameterized.Parameters
     public static Object[][] dataForTest() {
         return new Object[][] {
-                { "N M", true},
-                { "NA M", true},
-                { "NAMENAMENAME NAMEN", true},
-                { "NAMENAMENAME NAMENA", true},
-                { "NAMENAMENAME NAMENAM", false},
-                { "NA", false},
-                { "NAMENAMENAME", false},
-                { " NAMENAMENAME", false},
-                { "NAMENAMENAME ", false},
-                { " NAMENAMENAME ", false},
-                { "NAMENA  MENAME", false},
-                { "NAMENA MEN AME", false},
-                { "NAME 123", false},
-                { "NAME .,`", false},
-                { "ИМЯ ИМЯ", false},
-                { "n m", false},
+                { "Т Ш", true},
+                { "Ти Ш", true},
+                { "ТимотиТимоти Шалам", true},
+                { "ТимотиТимоти Шаламе", true},
+                { "Тим ЁёЕе", true},
+                { "Timothee Chalamet", true},
+                { "ТимотиТимоти ШаламеШ", false},
+                { "Ти", false},
+                { "ТимотиШаламе", false},
+                { " ТимотиШаламе", false},
+                { "ТимотиШаламе ", false},
+                { " ТимотиШаламе ", false},
+                { "Тимоти  Шаламе", false},
+                { "Тимоти Шаламе Шалам", false},
+                { "Тимоти .,`", false},
+                { "Тимоти 1", false},
                 { "", false}
         };
     }
 
+
     @Test
-    public void checkNameToEmbossReturnExpectedBooleanValue(){
+    @DisplayName("Check name to emboss")
+    public void checkNameToEmbossReturnExpectedBooleanValueTest(){
         Account account = new Account(name);
         boolean actual = account.checkNameToEmboss();
         assertEquals("Value \"" +name+ "\" is not valid.", expected,actual);
